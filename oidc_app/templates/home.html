@@ -1,0 +1,22 @@
+<!-- oidc_app/templates/base.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}Django OIDC{% endblock %}</title>
+</head>
+
+<body>
+    <main>
+        {% if user.is_authenticated %}
+        Hi {{ user.username }} - {{ user.email }}!
+        <p><a href="{% url 'logout' %}">Log Out</a></p>
+        {% else %}
+        <p>You are not logged in</p>
+        <a href="{% url 'login' %}">Log In</a>
+        {% endif %}
+    </main>
+</body>
+
+</html>

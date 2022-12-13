@@ -1,0 +1,13 @@
+<!-- oidc_app/templates/registration/login.html -->
+<h2>Log In</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Log In</button>
+    <br />
+    or
+    <br />
+    <a href="{% url 'oidc_authentication_init' %}">
+        <button type="button">Log In with Ota</button>
+    </a>
+</form>
