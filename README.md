@@ -1,6 +1,7 @@
 # OIDC Oauth2 authentication using Django and mozilla-django-oidc with Okta
 
 > **[Tutorial 1: How to implement OIDC authentication with Django and Okta](https://dev.to/hesbon/oidc-oauth2-authentication-using-django-and-mozilla-django-oidc-with-okta-4jll)**
+
 > **[Tutorial 2: Customizing mozilla-django-oidc](https://dev.to/hesbon/customizing-mozilla-django-oidc-544p)**
 
 > ## How to set up the project
