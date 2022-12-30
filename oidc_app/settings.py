@@ -48,6 +48,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "oidc_app.core.middleware.OIDCSessionRefreshMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -75,7 +76,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "oidc_app.wsgi.application"
 
 AUTHENTICATION_BACKENDS = (
-    "mozilla_django_oidc.auth.OIDCAuthenticationBackend",
+    "oidc_app.core.backends.CustomOIDCAuthenticationBackend",
     "django.contrib.auth.backends.ModelBackend",
 )
 
@@ -158,3 +159,27 @@ OIDC_OP_TOKEN_ENDPOINT = (
 OIDC_OP_JWKS_ENDPOINT = (
     f"https://{OKTA_DOMAIN}/oauth2/default/v1/keys"  # The OIDC JWKS endpoint
 )
+
+OIDC_OP_TOKEN_REVOKE_ENDPOINT = f"https://{OKTA_DOMAIN}/oauth2/default/v1/revoke"  # The OIDC token revocation endpoint
+
+OIDC_RENEW_ID_TOKEN_EXPIRY_SECONDS = 60 * 60  # 1 hour
+
+OIDC_STORE_ACCESS_TOKEN = os.environ.get(
+    "OIDC_STORE_ACCESS_TOKEN", True
+)  # Store the access token in the OIDC backend
+OIDC_STORE_ID_TOKEN = os.environ.get(
+    "OIDC_STORE_ID_TOKEN", True
+)  # Store the ID token in the OIDC backend
+OIDC_STORE_REFRESH_TOKEN = os.environ.get(
+    "OIDC_STORE_REFRESH_TOKEN", True
+)  # Store the refresh token in the OIDC backend
+
+OIDC_RP_SCOPES = os.environ.get(
+    "OIDC_RP_SCOPES", "openid profile email offline_access"
+)  # The OIDC scopes to request
+
+OIDC_EXEMPT_URLS = [
+    "oidc_authentication_init",
+    "oidc_authentication_callback",
+    "logout",
+]
